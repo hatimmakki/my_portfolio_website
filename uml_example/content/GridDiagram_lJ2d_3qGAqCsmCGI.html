@@ -1,0 +1,694 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Grid - Glossary Grid</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		HatimHoho_A1_CoffeMaker	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="Model_RJ2d_3qGAqCsmCGH.html" class="PageParentTitle">Glossary : Model</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Grid - Glossary Grid		</span>
+<a onclick="javascript: showVpLink('HatimHoho_A2_CoffeMaker.vpp://diagram/lJ2d_3qGAqCsmCGI', 'Glossary Grid\nHatimHoho_A2_CoffeMaker.vpp://diagram/lJ2d_3qGAqCsmCGI', 'Glossary Grid', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+Configuration			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="25%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Value</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Model Element</span>			</td>
+			<td>
+			</td>
+			<td>
+				<div class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Term.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Term.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Term</span>				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Scope</span>			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Project</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Includes Referenced Projects</span>			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">true</span>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+Terms			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td width="17%" style="padding: 5px 10px;">
+<span class="TableHeaderText">Name</span>			</td>
+			<td width="37%" style="padding: 5px 10px;">
+<span class="TableHeaderText">Aliases</span>			</td>
+			<td width="8%" style="padding: 5px 10px;">
+<span class="TableHeaderText">Labels</span>			</td>
+			<td width="36%" style="padding: 5px 10px;">
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr id="modelSelectionAvCD_3qGAqCsmCHF" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="AvCD_3qGAqCsmCHF"></a><a href="Glossary_AvCD_3qGAqCsmCHF.html" class="TableContent"><span class="TableContent">boiler</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="AvCD_3qGAqCsmCHF"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="AvCD_3qGAqCsmCHF"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="AvCD_3qGAqCsmCHF"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Boils the <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a>, 
+      and sends <a class="ItemLink" href="Glossary_J1y9_3qGAqCsmCG9.html" name="">steam</a> 
+      into the <a class="ItemLink" href="Glossary_iQcD_3qGAqCsmCHE.html" name="">valve</a> 
+      then the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectiona_V__3qGAqCsmCzj" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="a_V__3qGAqCsmCzj"></a><a href="Glossary_a_V__3qGAqCsmCzj.html" class="TableContent"><span class="TableContent">boiler heating element</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="a_V__3qGAqCsmCzj"></a>				<span class="TableContent">
+<a href="Alias_XrPtiPqAUEB6phRv.html" class="ItemLink">boiler's heater</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="a_V__3qGAqCsmCzj"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="a_V__3qGAqCsmCzj"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Part of the <a class="ItemLink" href="Glossary_AvCD_3qGAqCsmCHF.html" name="">boiler</a>, 
+      the element that heats up to boil the <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionoPr9_3qGAqCsmCHC" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="oPr9_3qGAqCsmCHC"></a><a href="Glossary_oPr9_3qGAqCsmCHC.html" class="TableContent"><span class="TableContent">BoilerSensor</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="oPr9_3qGAqCsmCHC"></a>				<span class="TableContent">
+<a href="Alias_vHbdiPqAUEB6phST.html" class="ItemLink">Boiler's sensor</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="oPr9_3qGAqCsmCHC"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="oPr9_3qGAqCsmCHC"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Part of the <a class="ItemLink" href="Glossary_AvCD_3qGAqCsmCHF.html" name="">boiler</a>, 
+      the element that determines the presence of the <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a>. 
+      While the <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">machine</a> 
+      is active by clicking on the brewing <a class="ItemLink" href="Glossary_rj89_3qGAqCsmCG8.html" name="">button</a>, 
+      if the <a class="ItemLink" href="Glossary_AvCD_3qGAqCsmCHF.html" name="">boiler</a> 
+      is not empty, the <a class="ItemLink" href="Glossary_oPr9_3qGAqCsmCHC.html" name="">boiler's 
+      sensor</a> turns ON the <a class="ItemLink" href="Glossary_a_V__3qGAqCsmCzj.html" name="">boiler's 
+      heater</a>, else, it turns it OFF.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionrj89_3qGAqCsmCG8" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="rj89_3qGAqCsmCG8"></a><a href="Glossary_rj89_3qGAqCsmCG8.html" class="TableContent"><span class="TableContent">Brew button</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="rj89_3qGAqCsmCG8"></a>				<span class="TableContent">
+<a href="Alias_wkRj_3qGAqCsmCI4.html" class="ItemLink">button</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="rj89_3qGAqCsmCG8"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="rj89_3qGAqCsmCG8"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      When this <a class="ItemLink" href="Glossary_rj89_3qGAqCsmCG8.html" name="">button</a> 
+      is pressed, the <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">machine</a> 
+      will start making <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelection0gJ9_3qGAqCsmCHA" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="0gJ9_3qGAqCsmCHA"></a><a href="Glossary_0gJ9_3qGAqCsmCHA.html" class="TableContent"><span class="TableContent">brewed coffee</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="0gJ9_3qGAqCsmCHA"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="0gJ9_3qGAqCsmCHA"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="0gJ9_3qGAqCsmCHA"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The final product of the <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">machine</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionu4nd_3qGAqCsmCG3" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="u4nd_3qGAqCsmCG3"></a><a href="Glossary_u4nd_3qGAqCsmCG3.html" class="TableContent"><span class="TableContent">filter</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="u4nd_3qGAqCsmCG3"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="u4nd_3qGAqCsmCG3"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="u4nd_3qGAqCsmCG3"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Holds <a class="ItemLink" href="Glossary_TwaoQPqGAqCsmEmk.html" name="">ground 
+      coffee</a>, and filters it to produce <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionTwaoQPqGAqCsmEmk" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="TwaoQPqGAqCsmEmk"></a><a href="Glossary_TwaoQPqGAqCsmEmk.html" class="TableContent"><span class="TableContent">Ground Coffee</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="TwaoQPqGAqCsmEmk"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="TwaoQPqGAqCsmEmk"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="TwaoQPqGAqCsmEmk"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      the first raw material of the system. A coffee that is ground.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionzSoD_3qGAqCsmCHD" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="zSoD_3qGAqCsmCHD"></a><a href="Glossary_zSoD_3qGAqCsmCHD.html" class="TableContent"><span class="TableContent">indicator</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="zSoD_3qGAqCsmCHD"></a>				<span class="TableContent">
+<a href="Alias_3YniQPqGAqCsmE5W.html" class="ItemLink">light</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="zSoD_3qGAqCsmCHD"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="zSoD_3qGAqCsmCHD"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Turns green when the coffee is ready.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelection8p2d_3qGAqCsmCGS" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="8p2d_3qGAqCsmCGS"></a><a href="Glossary_8p2d_3qGAqCsmCGS.html" class="TableContent"><span class="TableContent">Mark IV</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="8p2d_3qGAqCsmCGS"></a>				<span class="TableContent">
+<a href="Alias_tNIj_3qGAqCsmCH2.html" class="ItemLink">coffee maker</a>, <a href="Alias_fB4j_3qGAqCsmCH3.html" class="ItemLink">coffee machine</a>, <a href="Alias_cUkj_3qGAqCsmCH4.html" class="ItemLink">hardware</a>, <a href="Alias_123n_3qGAqCsmCgB.html" class="ItemLink">mark IV special</a>, <a href="Alias_1p43_3qGAqCsmCiQ.html" class="ItemLink">machine</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="8p2d_3qGAqCsmCGS"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="8p2d_3qGAqCsmCGS"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      a <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">coffee 
+      maker</a>. creates <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a> from <a class="ItemLink" href="Glossary_TwaoQPqGAqCsmEmk.html" name="">ground 
+      coffee</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionoqvlQPqGAqCsmFSA" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="oqvlQPqGAqCsmFSA"></a><a href="Glossary_oqvlQPqGAqCsmFSA.html" class="TableContent"><span class="TableContent">PlateSensor</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="oqvlQPqGAqCsmFSA"></a>				<span class="TableContent">
+<a href="Alias_eTBDiPqAUEB6phSx.html" class="ItemLink">plate's sensor</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="oqvlQPqGAqCsmFSA"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="oqvlQPqGAqCsmFSA"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Part of the <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">plate</a>, 
+      determines whether the <a class="ItemLink" href="Glossary_9sm9_3qGAqCsmCG_.html" name="">pot</a> 
+      is on its place or not. and turns the <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">plate's 
+      heater</a> on and off.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelection9sm9_3qGAqCsmCG." class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="9sm9_3qGAqCsmCG."></a><a href="Glossary_9sm9_3qGAqCsmCG_.html" class="TableContent"><span class="TableContent">pot</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="9sm9_3qGAqCsmCG."></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="9sm9_3qGAqCsmCG."></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="9sm9_3qGAqCsmCG."></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      saves the <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelection2yU3_3qGAqCsmCij" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="2yU3_3qGAqCsmCij"></a><a href="Glossary_2yU3_3qGAqCsmCij.html" class="TableContent"><span class="TableContent">power</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="2yU3_3qGAqCsmCij"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="2yU3_3qGAqCsmCij"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="2yU3_3qGAqCsmCij"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The <a class="ItemLink" href="Glossary_2yU3_3qGAqCsmCij.html" name="">power</a> 
+      source. e.g. 110V
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectioniQcD_3qGAqCsmCHE" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="iQcD_3qGAqCsmCHE"></a><a href="Glossary_iQcD_3qGAqCsmCHE.html" class="TableContent"><span class="TableContent">pressure-relief valve</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="iQcD_3qGAqCsmCHE"></a>				<span class="TableContent">
+<a href="Alias_hp0IAPqGAqCsmC18.html" class="ItemLink">valve</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="iQcD_3qGAqCsmCHE"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="iQcD_3qGAqCsmCHE"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      opens to reduce the pressure in the <a class="ItemLink" href="Glossary_AvCD_3qGAqCsmCHF.html" name="">boiler</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionJ1y9_3qGAqCsmCG9" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="J1y9_3qGAqCsmCG9"></a><a href="Glossary_J1y9_3qGAqCsmCG9.html" class="TableContent"><span class="TableContent">steam</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="J1y9_3qGAqCsmCG9"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="J1y9_3qGAqCsmCG9"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="J1y9_3qGAqCsmCG9"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      flows into the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a> 
+      and condense because of the pressure
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectiontBs9_3qGAqCsmCG7" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="tBs9_3qGAqCsmCG7"></a><a href="Glossary_tBs9_3qGAqCsmCG7.html" class="TableContent"><span class="TableContent">straine</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="tBs9_3qGAqCsmCG7"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="tBs9_3qGAqCsmCG7"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="tBs9_3qGAqCsmCG7"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      holds the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionBZ7d_3qGAqCsmCG2" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="BZ7d_3qGAqCsmCG2"></a><a href="Glossary_BZ7d_3qGAqCsmCG2.html" class="TableContent"><span class="TableContent">user</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="BZ7d_3qGAqCsmCG2"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="BZ7d_3qGAqCsmCG2"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="BZ7d_3qGAqCsmCG2"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      the <a class="ItemLink" href="Glossary_BZ7d_3qGAqCsmCG2.html" name="">user</a> 
+      who wants to make a <a class="ItemLink" href="Glossary_0xPsTgaFYFlckQ5y.html" name="">cup</a> 
+      of <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelectionsJ1X_3qGAqCsmChG" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="sJ1X_3qGAqCsmChG"></a><a href="Glossary_sJ1X_3qGAqCsmChG.html" class="TableContent"><span class="TableContent">warmer plate heating element</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="sJ1X_3qGAqCsmChG"></a>				<span class="TableContent">
+<a href="Alias_3P9X_3qGAqCsmChT.html" class="ItemLink">plate heater</a>, <a href="Alias_RqjX_3qGAqCsmChU.html" class="ItemLink">warmer</a>, <a href="Alias__2yf_3qGAqCsmCyd.html" class="ItemLink">plate</a>, <a href="Alias_8Wqf_3qGAqCsmCye.html" class="ItemLink">warmer plate</a>, <a href="Alias_pCpjiPqAUEB6phTF.html" class="ItemLink">plate's heater</a>				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="sJ1X_3qGAqCsmChG"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="sJ1X_3qGAqCsmChG"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Part of the <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">plate</a>, 
+      it heats up the <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">plate</a> 
+      in order to keep the <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a> warm.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelection2z09_3qGAqCsmCG6" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="2z09_3qGAqCsmCG6"></a><a href="Glossary_2z09_3qGAqCsmCG6.html" class="TableContent"><span class="TableContent">water</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="2z09_3qGAqCsmCG6"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="2z09_3qGAqCsmCG6"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="2z09_3qGAqCsmCG6"></a><span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      second raw material the <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">machine</a> 
+      needs in order to produce <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr id="modelSelection0xPsTgaFYFlckQ5y" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="0xPsTgaFYFlckQ5y"></a><a href="Glossary_0xPsTgaFYFlckQ5y.html" class="TableContent"><span class="TableContent">cup</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="0xPsTgaFYFlckQ5y"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="0xPsTgaFYFlckQ5y"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="0xPsTgaFYFlckQ5y"></a><span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr id="modelSelectionQ9bMTgaFYFlckQ5T" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="Q9bMTgaFYFlckQ5T"></a><a href="Glossary_Q9bMTgaFYFlckQ5T.html" class="TableContent"><span class="TableContent">screen</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="Q9bMTgaFYFlckQ5T"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="Q9bMTgaFYFlckQ5T"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="Q9bMTgaFYFlckQ5T"></a><span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr id="modelSelectionXH2sTgaFYFlckQ5x" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="XH2sTgaFYFlckQ5x"></a><a href="Glossary_XH2sTgaFYFlckQ5x.html" class="TableContent"><span class="TableContent">main screen</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="XH2sTgaFYFlckQ5x"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="XH2sTgaFYFlckQ5x"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="XH2sTgaFYFlckQ5x"></a><span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr id="modelSelectionXMQcTgaFYFlckQ50" class="TableRow2">
+			<td style="padding: 5px 10px;">
+<a name="XMQcTgaFYFlckQ50"></a><a href="Glossary_XMQcTgaFYFlckQ50.html" class="TableContent"><span class="TableContent">right screen</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="XMQcTgaFYFlckQ50"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="XMQcTgaFYFlckQ50"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="XMQcTgaFYFlckQ50"></a><span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr id="modelSelectionjifsTgaFYFlckQ5z" class="TableRow1">
+			<td style="padding: 5px 10px;">
+<a name="jifsTgaFYFlckQ5z"></a><a href="Glossary_jifsTgaFYFlckQ5z.html" class="TableContent"><span class="TableContent">left screen</span></a>			</td>
+			<td style="padding: 5px 10px;">
+<a name="jifsTgaFYFlckQ5z"></a>				<span class="TableContent">
+				</span>
+			</td>
+			<td style="padding: 5px 10px;">
+<a name="jifsTgaFYFlckQ5z"></a><span class="TableContent"></span>			</td>
+			<td style="padding: 5px 10px;">
+<a name="jifsTgaFYFlckQ5z"></a><span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		HatimHoho_A1_CoffeMaker	</div>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Use-Case CoffeMaker</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		HatimHoho_A1_CoffeMaker	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="Model_rC8__3qGAqCsmAu6.html" class="PageParentTitle">Use-Case Model : Model</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Use Case Diagram - Use-Case CoffeMaker		</span>
+<a onclick="javascript: showVpLink('HatimHoho_A2_CoffeMaker.vpp://diagram/DDK1_3qGAqCsmBIK', 'Use-Case CoffeMaker\nHatimHoho_A2_CoffeMaker.vpp://diagram/DDK1_3qGAqCsmBIK', 'Use-Case CoffeMaker', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|151.0|2.0|200.0|280.0|System_Qlp1_3qGAqCsmBM4.html|System_Qlp1_3qGAqCsmBM4.html|_Fp1_3qGAqCsmBM3" id="option_Fp1_3qGAqCsmBM3">Coffee Maker : System</option>
+<option value="shape|9.0|103.0|30.0|60.0|Actor_bza1_3qGAqCsmBMl.html|Actor_bza1_3qGAqCsmBMl.html|tza1_3qGAqCsmBL1" id="optiontza1_3qGAqCsmBL1">User : Actor</option>
+<option value="shape|463.0|103.0|30.0|60.0|Actor_C5NUQPqGAqCsmEuI.html|Actor_C5NUQPqGAqCsmEuI.html|C5NUQPqGAqCsmEuH" id="optionC5NUQPqGAqCsmEuH">CoffeeMachineDriver : Actor</option>
+<option value="shape|220.0|123.0|80.0|40.0|UseCase_bARN_3qGAqCsmBor.html|UseCase_bARN_3qGAqCsmBor.html|rARN_3qGAqCsmBoq" id="optionrARN_3qGAqCsmBoq">Make Coffee : Use Case</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/UseCase_CoffeMaker.png" usemap="#diagram_map" class="Image" width="555" height="286"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="39.0, 136.0, 39.0, 150.0, 220.0, 150.0, 220.0, 136.0" coords2="39.0, 136.0, 39.0, 150.0, 220.0, 150.0, 220.0, 136.0" shape="poly" alt=":Association" id="areadiagram_map_3YVN_3qGAqCsmBrB" href="Association_DYVN_3qGAqCsmBq8.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="300.0, 136.0, 300.0, 150.0, 463.0, 150.0, 463.0, 136.0" coords2="300.0, 136.0, 300.0, 150.0, 463.0, 150.0, 463.0, 136.0" shape="poly" alt=":Association" id="areadiagram_map_PpY0QPqGAqCsmEux" href="Association_bpY0QPqGAqCsmEus.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="463, 103, 493, 163" coords2="463, 103, 493, 163" shape="rect" alt="CoffeeMachineDriver:Actor" id="areadiagram_map_C5NUQPqGAqCsmEuH" href="Actor_C5NUQPqGAqCsmEuI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_8p2d_3qGAqCsmCGS.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;Mark 
+      IV Special&amp;lt;/a&amp;gt; makes up to [12 cups] of &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_0gJ9_3qGAqCsmCHA.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;brewed 
+      coffee&amp;lt;/a&amp;gt; at a time. The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_BZ7d_3qGAqCsmCG2.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;user&amp;lt;/a&amp;gt; 
+      places a &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_u4nd_3qGAqCsmCG3.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;filter&amp;lt;/a&amp;gt; 
+      in the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_u4nd_3qGAqCsmCG3.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;filter&amp;lt;/a&amp;gt; 
+      holder, fills the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_u4nd_3qGAqCsmCG3.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;filter&amp;lt;/a&amp;gt; 
+      with &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_TwaoQPqGAqCsmEmk.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;ground 
+      coffee&amp;lt;/a&amp;gt;, and slides the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_u4nd_3qGAqCsmCG3.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;filter&amp;lt;/a&amp;gt; 
+      holder into its receptacle. The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_BZ7d_3qGAqCsmCG2.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;user&amp;lt;/a&amp;gt; 
+      then pours up to 12 cups of &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      into the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      strainer and presses the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_rj89_3qGAqCsmCG8.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;Brew 
+      button&amp;lt;/a&amp;gt;. The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      is heated until boiling. The pressure of the evolving &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_J1y9_3qGAqCsmCG9.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;steam&amp;lt;/a&amp;gt; 
+      forces the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      to be sprayed over the coffee grounds, and coffee drips through the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_u4nd_3qGAqCsmCG3.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;filter&amp;lt;/a&amp;gt; 
+      into the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_9sm9_3qGAqCsmCG_.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;pot&amp;lt;/a&amp;gt;. 
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_9sm9_3qGAqCsmCG_.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;pot&amp;lt;/a&amp;gt; 
+      is kept warm for extended periods by a &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_sJ1X_3qGAqCsmChG.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;warmer 
+      plate&amp;lt;/a&amp;gt;, which turns on only if coffee is in the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_9sm9_3qGAqCsmCG_.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;pot&amp;lt;/a&amp;gt;. 
+      If the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_9sm9_3qGAqCsmCG_.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;pot&amp;lt;/a&amp;gt; 
+      is removed from the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_sJ1X_3qGAqCsmChG.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;warmer 
+      plate&amp;lt;/a&amp;gt; while &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      is being sprayed over the grounds, the flow of &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      is stopped so that &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_0gJ9_3qGAqCsmCHA.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;brewed 
+      coffee&amp;lt;/a&amp;gt; does not spill on the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_sJ1X_3qGAqCsmChG.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;warmer 
+      plate&amp;lt;/a&amp;gt;. The following &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_8p2d_3qGAqCsmCGS.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;hardware&amp;lt;/a&amp;gt; 
+      needs to be monitored or controlled:
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_a_V__3qGAqCsmCzj.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;boiler 
+      heating element&amp;lt;/a&amp;gt;. It can be turned on or off.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_sJ1X_3qGAqCsmChG.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;warmer 
+      plate heating element&amp;lt;/a&amp;gt;. It can be turned on or off.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_oqvlQPqGAqCsmFSA.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;Plate's 
+      sensor&amp;lt;/a&amp;gt; for the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_sJ1X_3qGAqCsmChG.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;warmer 
+      plate&amp;lt;/a&amp;gt;. It has three states: warmerEmpty, potEmpty, potNotEmpty.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      A &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_oPr9_3qGAqCsmCHC.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;boiler's 
+      sensor&amp;lt;/a&amp;gt; for the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_AvCD_3qGAqCsmCHF.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;boiler&amp;lt;/a&amp;gt;, 
+      which determines whether &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      is present. It has two states: boilerEmpty or boilerNotEmpty.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_rj89_3qGAqCsmCG8.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;Brew 
+      button&amp;lt;/a&amp;gt;. This momentary &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_rj89_3qGAqCsmCG8.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;button&amp;lt;/a&amp;gt; 
+      starts the brewing cycle. It has an &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_zSoD_3qGAqCsmCHD.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;indicator&amp;lt;/a&amp;gt; 
+      that lights up when the brewing cycle is over and the coffee is ready.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      A &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_iQcD_3qGAqCsmCHE.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;pressure-relief 
+      valve&amp;lt;/a&amp;gt; that opens to reduce the pressure in the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_AvCD_3qGAqCsmCHF.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;boiler&amp;lt;/a&amp;gt;. 
+      The drop in pressure stops the flow of &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_2z09_3qGAqCsmCG6.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;water&amp;lt;/a&amp;gt; 
+      to the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_u4nd_3qGAqCsmCG3.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;filter&amp;lt;/a&amp;gt;. 
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_iQcD_3qGAqCsmCHE.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;valve&amp;lt;/a&amp;gt; 
+      can be opened or closed.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      The &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_8p2d_3qGAqCsmCGS.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;machine&amp;lt;/a&amp;gt; 
+      also has three different &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_Q9bMTgaFYFlckQ5T.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;screen&amp;lt;/a&amp;gt; 
+      s, the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_XH2sTgaFYFlckQ5x.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;main 
+      screen&amp;lt;/a&amp;gt; shows what the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_8p2d_3qGAqCsmCGS.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;machine&amp;lt;/a&amp;gt; 
+      is doing at this moment. &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_jifsTgaFYFlckQ5z.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;left 
+      screen&amp;lt;/a&amp;gt; is a timer to show how many seconds the current process needs 
+      to finish, and the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_XMQcTgaFYFlckQ50.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;right 
+      screen&amp;lt;/a&amp;gt; shows the &amp;lt;a class=&amp;quot;ItemLink&amp;quot; href=&amp;quot;Glossary_0xPsTgaFYFlckQ5y.html&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;cup&amp;lt;/a&amp;gt; 
+      size
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="220, 123, 300, 163" coords2="220, 123, 300, 163" shape="rect" alt="Make Coffee:Use Case" id="areadiagram_map_rARN_3qGAqCsmBoq" href="UseCase_bARN_3qGAqCsmBor.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="151, 2, 351, 282" coords2="151, 2, 351, 282" shape="rect" alt="Coffee Maker:System" id="areadiagram_map__Fp1_3qGAqCsmBM3" href="System_Qlp1_3qGAqCsmBM4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="9, 103, 39, 163" coords2="9, 103, 39, 163" shape="rect" alt="User:Actor" id="areadiagram_map_tza1_3qGAqCsmBL1" href="Actor_bza1_3qGAqCsmBMl.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/System.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/System.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="System_Qlp1_3qGAqCsmBM4.html" class="ItemLink">Coffee Maker : System</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_bza1_3qGAqCsmBMl.html" class="ItemLink">User : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_C5NUQPqGAqCsmEuI.html" class="ItemLink">CoffeeMachineDriver : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_bARN_3qGAqCsmBor.html" class="ItemLink">Make Coffee : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;margin-right:0;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">Mark 
+      IV Special</a> makes up to [12 cups] of <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a> at a time. The <a class="ItemLink" href="Glossary_BZ7d_3qGAqCsmCG2.html" name="">user</a> 
+      places a <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a> 
+      in the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a> 
+      holder, fills the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a> 
+      with <a class="ItemLink" href="Glossary_TwaoQPqGAqCsmEmk.html" name="">ground 
+      coffee</a>, and slides the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a> 
+      holder into its receptacle. The <a class="ItemLink" href="Glossary_BZ7d_3qGAqCsmCG2.html" name="">user</a> 
+      then pours up to 12 cups of <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      into the <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      strainer and presses the <a class="ItemLink" href="Glossary_rj89_3qGAqCsmCG8.html" name="">Brew 
+      button</a>. The <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      is heated until boiling. The pressure of the evolving <a class="ItemLink" href="Glossary_J1y9_3qGAqCsmCG9.html" name="">steam</a> 
+      forces the <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      to be sprayed over the coffee grounds, and coffee drips through the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a> 
+      into the <a class="ItemLink" href="Glossary_9sm9_3qGAqCsmCG_.html" name="">pot</a>. 
+      The <a class="ItemLink" href="Glossary_9sm9_3qGAqCsmCG_.html" name="">pot</a> 
+      is kept warm for extended periods by a <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">warmer 
+      plate</a>, which turns on only if coffee is in the <a class="ItemLink" href="Glossary_9sm9_3qGAqCsmCG_.html" name="">pot</a>. 
+      If the <a class="ItemLink" href="Glossary_9sm9_3qGAqCsmCG_.html" name="">pot</a> 
+      is removed from the <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">warmer 
+      plate</a> while <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      is being sprayed over the grounds, the flow of <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      is stopped so that <a class="ItemLink" href="Glossary_0gJ9_3qGAqCsmCHA.html" name="">brewed 
+      coffee</a> does not spill on the <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">warmer 
+      plate</a>. The following <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">hardware</a> 
+      needs to be monitored or controlled:
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The <a class="ItemLink" href="Glossary_a_V__3qGAqCsmCzj.html" name="">boiler 
+      heating element</a>. It can be turned on or off.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">warmer 
+      plate heating element</a>. It can be turned on or off.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The <a class="ItemLink" href="Glossary_oqvlQPqGAqCsmFSA.html" name="">Plate's 
+      sensor</a> for the <a class="ItemLink" href="Glossary_sJ1X_3qGAqCsmChG.html" name="">warmer 
+      plate</a>. It has three states: warmerEmpty, potEmpty, potNotEmpty.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      A <a class="ItemLink" href="Glossary_oPr9_3qGAqCsmCHC.html" name="">boiler's 
+      sensor</a> for the <a class="ItemLink" href="Glossary_AvCD_3qGAqCsmCHF.html" name="">boiler</a>, 
+      which determines whether <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      is present. It has two states: boilerEmpty or boilerNotEmpty.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The <a class="ItemLink" href="Glossary_rj89_3qGAqCsmCG8.html" name="">Brew 
+      button</a>. This momentary <a class="ItemLink" href="Glossary_rj89_3qGAqCsmCG8.html" name="">button</a> 
+      starts the brewing cycle. It has an <a class="ItemLink" href="Glossary_zSoD_3qGAqCsmCHD.html" name="">indicator</a> 
+      that lights up when the brewing cycle is over and the coffee is ready.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      A <a class="ItemLink" href="Glossary_iQcD_3qGAqCsmCHE.html" name="">pressure-relief 
+      valve</a> that opens to reduce the pressure in the <a class="ItemLink" href="Glossary_AvCD_3qGAqCsmCHF.html" name="">boiler</a>. 
+      The drop in pressure stops the flow of <a class="ItemLink" href="Glossary_2z09_3qGAqCsmCG6.html" name="">water</a> 
+      to the <a class="ItemLink" href="Glossary_u4nd_3qGAqCsmCG3.html" name="">filter</a>. 
+      The <a class="ItemLink" href="Glossary_iQcD_3qGAqCsmCHE.html" name="">valve</a> 
+      can be opened or closed.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      The <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">machine</a> 
+      also has three different <a class="ItemLink" href="Glossary_Q9bMTgaFYFlckQ5T.html" name="">screen</a> 
+      s, the <a class="ItemLink" href="Glossary_XH2sTgaFYFlckQ5x.html" name="">main 
+      screen</a> shows what the <a class="ItemLink" href="Glossary_8p2d_3qGAqCsmCGS.html" name="">machine</a> 
+      is doing at this moment. <a class="ItemLink" href="Glossary_jifsTgaFYFlckQ5z.html" name="">left 
+      screen</a> is a timer to show how many seconds the current process needs 
+      to finish, and the <a class="ItemLink" href="Glossary_XMQcTgaFYFlckQ50.html" name="">right 
+      screen</a> shows the <a class="ItemLink" href="Glossary_0xPsTgaFYFlckQ5y.html" name="">cup</a> 
+      size
+    </p>
+  </body></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		HatimHoho_A1_CoffeMaker	</div>
+</body>
+</html>
